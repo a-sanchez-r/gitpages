@@ -1,0 +1,14 @@
+<div class="flex items-center p-4 mb-4 text-sm rounded-lg border dark:bg-gray-800"
+     role="alert"
+     [ngClass]="[
+       'text-' + type + '-800',
+       'border-' + type + '-300',
+       'bg-' + type + '-50',
+       'dark:text-' + type + '-400',
+       'dark:border-' + type + '-800'
+     ]">
+  <span class="sr-only">{{ title }}</span>
+  <div>
+    <span class="font-medium">{{ title }}</span> {{ message }}
+  </div>
+</div>

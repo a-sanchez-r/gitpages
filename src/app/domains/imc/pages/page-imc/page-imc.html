@@ -1,0 +1,80 @@
+<main class="pt-20 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row justify-center items-start gap-6">
+
+  <!-- Calculadora -->
+  <div class="w-full max-w-md bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <ng-container *ngIf="showAlert">
+      <app-alert-imc 
+        [message]="alert.message" 
+        [type]="alert.type" 
+        [title]="alert.title">
+      </app-alert-imc>
+    </ng-container>
+    <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Calculadora IMC</h2>
+
+    <!-- Campo Paciente -->
+    <div class="mb-4">
+      <label for="paciente" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Paciente</label>
+      <input type="text" id="paciente"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                    dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+             [(ngModel)]="data.paciente"/>
+    </div>  
+
+    <!-- Campo Peso -->
+    <div class="mb-4">
+      <label for="peso" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Peso (kg)</label>
+      <input type="number" id="peso"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                    dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+             [(ngModel)]="data.peso"/>
+    </div>
+
+    <!-- Campo Talla -->
+    <div class="mb-4">
+      <label for="talla" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Talla (cm)</label>
+      <input type="number" id="talla"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                    dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+             [(ngModel)]="data.talla"/>
+    </div>
+
+    <!-- Botón Calcular -->
+    <button class="w-full text-white py-2 px-4 rounded-md 
+                   focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:bg-sky-500"
+            (click)="calcularIMC()">
+      Calcular
+    </button>
+  </div>
+
+  <!-- Historial -->
+  <div class="w-full max-w-md bg-gray-100 dark:bg-gray-900 p-6 rounded-lg shadow-md">
+    <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Últimos 5 resultados</h3>
+    <ul>
+      <li *ngFor="let item of historialIMC; let i = index"
+          class="p-3 mb-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm flex items-center justify-between">
+        <div>
+          <span class="font-semibold text-gray-800 dark:text-gray-200">{{ item.paciente }}</span>
+          <span [ngClass]="'text-' + item.type + '-800 block'"> 
+            IMC: {{ item.imc }}
+          </span>
+        </div>
+
+        <div class="flex space-x-3">
+          <button (click)="eliminarHistorial(i)"
+                  class="text-red-500 hover:text-red-700 font-bold focus:outline-none p-1">
+            ✕
+          </button>
+
+          <button (click)="enviarDatos(item)"
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded">
+            Antro
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</main>
